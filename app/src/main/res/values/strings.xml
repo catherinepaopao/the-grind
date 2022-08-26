@@ -7,4 +7,6 @@
     <string name="instructions_text">insert instructions</string>
     <string name="close">CLOSE</string>
     <string name="daily_qs">Daily Questions</string>
+    <string name="overall_lb">Overall Leaderboards</string>
+    <string name="settings">Settings</string>
 </resources>

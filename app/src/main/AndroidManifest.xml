@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".QuestionsPage"></activity>
+        <activity android:name=".GamePage"></activity>
+
     </application>
 
 </manifest>

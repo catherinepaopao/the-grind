@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                     instructDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialogInterface) {
-                            Intent toQuestions = new Intent(getApplicationContext(), QuestionsPage.class);
+                            Intent toQuestions = new Intent(getApplicationContext(), GamePage.class);
                             startActivity(toQuestions);
                         }
                     });
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     edit.putBoolean("isNew", true);
                     edit.apply(); // testing purposes
 
-                    Intent toQuestions = new Intent(getApplicationContext(), QuestionsPage.class);
+                    Intent toQuestions = new Intent(getApplicationContext(), GamePage.class);
                     startActivity(toQuestions);
                 }
             }
