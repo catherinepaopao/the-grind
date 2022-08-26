@@ -8,15 +8,17 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="0dp"
         android:text="@string/daily_qs"
-        android:textColor="@color/dark_purple"
+        android:textAlignment="center"
+        android:textColor="@color/off_white"
         android:textSize="32sp"
         android:textStyle="bold"
+        android:background="@color/dark_purple"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,5 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <include layout="@layout/switch_buttons"/>
+
+    <include layout="@layout/settings_elements"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
