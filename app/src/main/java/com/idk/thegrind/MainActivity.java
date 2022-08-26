@@ -3,6 +3,7 @@ package com.idk.thegrind;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -34,15 +35,22 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor edit = prefs.edit();
                     edit.putBoolean("isNew", false);
                     edit.apply();
+
+                    instructDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            Intent toQuestions = new Intent(getApplicationContext(), QuestionsPage.class);
+                            startActivity(toQuestions);
+                        }
+                    });
                 } else {
                     SharedPreferences.Editor edit = prefs.edit();
                     edit.putBoolean("isNew", true);
-                    edit.apply();
-                }
+                    edit.apply(); // testing purposes
 
-                /* Sounds.play(MainActivity.this, R.raw.select);
-                Intent toQuestions = new Intent(getApplicationContext(), QuestionsPage.class);
-                startActivity(QuestionsPage); */
+                    Intent toQuestions = new Intent(getApplicationContext(), QuestionsPage.class);
+                    startActivity(toQuestions);
+                }
             }
         });
     }
