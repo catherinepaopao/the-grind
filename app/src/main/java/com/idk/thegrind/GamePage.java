@@ -11,9 +11,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class GamePage extends AppCompatActivity {
+    QuestionAdapter questionAdapter;
+
     SharedPreferences prefs;
     Button leaderboardButton;
     Button settingsButton;
@@ -53,6 +56,12 @@ public class GamePage extends AppCompatActivity {
         hideLeaderboard();
         hideSettings();
         showQuestions();
+
+        questionAdapter = new QuestionAdapter(GameData.subjects);
+
+        questionsQuestions.setLayoutManager(new GridLayoutManager(this, 2));
+        questionsQuestions.setAdapter(questionAdapter);
+        questionAdapter.notifyDataSetChanged();
 
         questionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
