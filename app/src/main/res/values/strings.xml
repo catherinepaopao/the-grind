@@ -16,5 +16,6 @@
     <string name="save">SAVE</string>
     <string name="submit">SUBMIT</string>
     <string name="enter_answer">Answer</string>
-    <string name="not_eligible">You are not eligible for a leaderboard spot.</string>
+    <string name="not_eligible">You are not eligible for a leaderboard spot</string>
+    <string name="wrong_answer">Wrong answer!</string>
 </resources>

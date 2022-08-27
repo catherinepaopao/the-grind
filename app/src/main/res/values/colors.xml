@@ -12,4 +12,5 @@
     <color name="darker_graylow">#FF707062</color>
     <color name="gray_yellow">#FFc7c7b7</color>
     <color name="off_white">#FFdbdbdb</color>
+    <color name="red_error">#FFd64553</color>
 </resources>

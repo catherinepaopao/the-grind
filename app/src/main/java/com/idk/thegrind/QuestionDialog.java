@@ -29,18 +29,20 @@ public class QuestionDialog extends Dialog {
     public void showDialog(int position){
         Button submit = findViewById(R.id.submit);
         TextView eligibility = findViewById(R.id.eligibility);
+        TextView wrongAnswer = findViewById(R.id.wrong_answer);
         TextView subjectName = findViewById(R.id.subject_name);
         TextView questionText = findViewById(R.id.question_text);
         EditText answerBox = findViewById(R.id.answer_box);
 
+        wrongAnswer.setVisibility(View.GONE);
         answerBox.setText("");
         subjectName.setText(GameData.subjects[position].toUpperCase(Locale.ROOT));
         questionText.setText(GameData.subjectQuestions[position]);
 
         if(GameData.eligible[position] == 0){
-            eligibility.setText("");
+            eligibility.setVisibility(View.GONE);
         } else {
-            eligibility.setText(R.string.not_eligible);
+            eligibility.setVisibility(View.VISIBLE);
         }
 
         submit.setOnClickListener(new View.OnClickListener() {
@@ -53,26 +55,28 @@ public class QuestionDialog extends Dialog {
                     if(playerAnswer.equals(GameData.subjectAnswers[position])){
                         GameData.eligible[position] = 2;
                         // congratulations message/popup asking to submit name + their time/score
+                        dismiss();
                     } else {
                         GameData.eligible[position] = 1;
-                        eligibility.setText(R.string.not_eligible);
-                        // wrong answer popup
+                        eligibility.setVisibility(View.VISIBLE);
+                        answerBox.setText("");
+                        wrongAnswer.setVisibility(View.VISIBLE);
                     }
                 } else {
                     if(playerAnswer.equals(GameData.subjectAnswers[position])){
                         GameData.eligible[position] = 2;
                         // congratulations message but notif that they don't get leaderboard, no name entry
+                        dismiss();
                     } else {
-                        // wrong answer popup
+                        answerBox.setText("");
+                        wrongAnswer.setVisibility(View.VISIBLE);
                     }
                 }
-
                 Set<String> gameStatus = convertArrayToSet(GameData.eligible);
 
                 SharedPreferences.Editor edit = prefs.edit();
                 edit.putStringSet("game_status", gameStatus);
                 edit.apply();
-                dismiss();
             }
         });
 

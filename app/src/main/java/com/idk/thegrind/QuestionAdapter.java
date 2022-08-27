@@ -3,6 +3,7 @@ package com.idk.thegrind;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             @Override
             public void onClick(View view) {
                 if(GameData.eligible[position] != 2){
+                    questionDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     questionDialog.showDialog(position);
                 } else {
                     // leaderboard page
