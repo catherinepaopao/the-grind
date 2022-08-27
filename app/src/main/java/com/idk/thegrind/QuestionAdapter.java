@@ -1,5 +1,7 @@
 package com.idk.thegrind;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>{
     String[] subjects;
+    QuestionDialog questionDialog;
 
-    public QuestionAdapter(String[] subjects) {
+    public QuestionAdapter(String[] subjects, QuestionDialog questionDialog) {
         this.subjects = subjects;
+        this.questionDialog = questionDialog;
     }
 
     public static class QuestionViewHolder extends RecyclerView.ViewHolder {
@@ -49,7 +53,14 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         viewHolder.buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                questionDialog.showDialog(position);
+            }
+        });
 
+        questionDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                GameData.eligible[position] = false;
             }
         });
     }

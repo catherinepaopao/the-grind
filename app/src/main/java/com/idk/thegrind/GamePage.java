@@ -57,7 +57,8 @@ public class GamePage extends AppCompatActivity {
         hideSettings();
         showQuestions();
 
-        questionAdapter = new QuestionAdapter(GameData.subjects);
+        QuestionDialog questionDialog = new QuestionDialog(this);
+        questionAdapter = new QuestionAdapter(GameData.subjects, questionDialog);
 
         questionsQuestions.setLayoutManager(new GridLayoutManager(this, 2));
         questionsQuestions.setAdapter(questionAdapter);
