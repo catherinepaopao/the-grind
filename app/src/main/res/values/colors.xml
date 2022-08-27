@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray_ish">#FF5c584e</color>
     <color name="dark_purple">#FF3d1f3a</color>
+    <color name="lighter_purple">#FF733c6d</color>
+    <color name="pink_ish">#FFc7b7c5</color>
     <color name="darker_graylow">#FF707062</color>
     <color name="gray_yellow">#FFc7c7b7</color>
     <color name="off_white">#FFdbdbdb</color>

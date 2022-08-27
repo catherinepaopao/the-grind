@@ -58,13 +58,15 @@ public class GamePage extends AppCompatActivity {
         generalSettings = findViewById(R.id.general);
 
         /* SharedPreferences.Editor edit = prefs.edit();
-        edit.putStringSet("game_status", convertArrayToSet(GameData.eligible)); // UNCOMMENT THIS TO RESET TO DEFAULT STATE
+        edit.putString("game_status", Conversions.convertArrayToString(GameData.eligible)); // UNCOMMENT THIS TO RESET ELEGIBILITY TO DEFAULT STATE
         edit.apply(); */
 
         /* System.out.println("asdf eligible " + Arrays.toString(GameData.eligible));
         System.out.println("asdf set " + convertArrayToSet(GameData.eligible));
         System.out.println("asdf prefs " + Arrays.toString(convertSetToArray(prefs.getStringSet("game_status", convertArrayToSet(GameData.eligible))))); */
-        GameData.eligible = convertSetToArray(prefs.getStringSet("game_status", convertArrayToSet(GameData.eligible)));
+
+
+        GameData.eligible = Conversions.convertArrayStringToArrayInt(prefs.getString("game_status", Conversions.convertArrayToString(GameData.eligible)));
 
         if(prefs.getBoolean("isSFX", true)){
             sfxSettings.setChecked(true);
@@ -189,29 +191,5 @@ public class GamePage extends AppCompatActivity {
 
     public void showLeaderboard(){
 
-    }
-
-    public static int[] convertSetToArray(Set<String> set)
-    {
-        int[] array = new int[set.size()];
-        String[] stringArray = set.toArray(new String[set.size()]);
-
-        for(int i = 0; i<set.size(); i++){
-            array[i] = Integer.parseInt(stringArray[i])-i*3;
-        }
-
-        return array;
-    }
-
-    public static <String> Set<String> convertArrayToSet(int array[]) {
-        Set<String> set = new HashSet<>();
-
-        for (int i = 0; i<array.length; i++){
-            int newNum = array[i]+i*3; // CHANGE IF MORE THAN 3 STATES
-            String ph = (String) java.lang.String.valueOf(newNum);
-            set.add(ph);
-        }
-
-        return set;
     }
 }

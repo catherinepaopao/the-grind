@@ -5,7 +5,7 @@
     <string name="start">START</string>
     <string name="welcome">WELCOME!</string>
     <string name="instructions">instructions</string>
-    <string name="instructions_text">insert instructions</string>
+    <string name="instructions_text">Here is how to play! Well, kind of. More like how the app works.</string>
     <string name="close">CLOSE</string>
     <string name="daily_qs">Daily Questions</string>
     <string name="overall_lb">Overall Leaderboards</string>
@@ -18,4 +18,5 @@
     <string name="enter_answer">Answer</string>
     <string name="not_eligible">You are not eligible for a leaderboard spot</string>
     <string name="wrong_answer">Wrong answer!</string>
+    <string name="no_answer">Answer before submitting!</string>
 </resources>
