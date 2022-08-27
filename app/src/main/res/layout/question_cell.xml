@@ -6,9 +6,10 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp">
 
-    <Button
+    <ImageButton
         android:id="@+id/question_icon"
         android:layout_width="match_parent"
-        android:layout_height="111dp"
-        android:text="subject" />
+        android:layout_height="206dp"
+        android:background="#00000000"
+        android:scaleType="fitCenter" />
 </FrameLayout>

@@ -6,9 +6,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,14 +31,15 @@ public class MainActivity extends AppCompatActivity {
 
         start = findViewById(R.id.startbutton);
         InstructionsDialog instructDialog = new InstructionsDialog(this);
+        instructDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor edit = prefs.edit();
+
                 if(prefs.getBoolean("isNew", true)){
                     instructDialog.showDialog();
-
-                    SharedPreferences.Editor edit = prefs.edit();
                     edit.putBoolean("isNew", false);
                     edit.apply();
 
@@ -44,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    SharedPreferences.Editor edit = prefs.edit();
                     edit.putBoolean("isNew", true);
                     edit.apply(); // testing purposes
 

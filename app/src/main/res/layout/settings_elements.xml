@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
+        android:layout_marginLeft="7dp"
         android:text="@string/general"
         android:textColor="@color/gray_ish" />
 
@@ -19,24 +20,40 @@
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_marginTop="8dp"
-        android:text="inst" />
+        android:backgroundTint="@color/white"
+        android:text="Instructions"
+        android:textColor="@color/black"
+        android:textAlignment="viewStart"/>
 
     <Button
         android:id="@+id/profile_button"
         android:layout_width="match_parent"
         android:layout_height="57dp"
-        android:text="prof" />
+        android:text="Profile"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:textAlignment="viewStart"/>
 
     <Button
         android:id="@+id/subjects_button"
         android:layout_width="match_parent"
         android:layout_height="57dp"
-        android:text="subj" />
+        android:text="Subjects (coming soon)"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:textAlignment="viewStart"/>
 
     <Switch
         android:id="@+id/sfx_switch"
-        android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:text="SFX off/on" />
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="17dp"
+        android:text="SOUND EFFECTS"
+        android:textAlignment="textStart"
+        android:background="@drawable/toggle_bg"
+        android:textColor="@color/black"
+        android:scaleY="1.2"
+        android:scaleX="1.2"/>
 
 </LinearLayout>

@@ -2,11 +2,15 @@ package com.idk.thegrind;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -14,13 +18,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class GamePage extends AppCompatActivity {
     QuestionAdapter questionAdapter;
 
     SharedPreferences prefs;
-    Button leaderboardButton;
-    Button settingsButton;
-    Button questionsButton;
+    ImageButton leaderboardButton;
+    ImageButton settingsButton;
+    ImageButton questionsButton;
     TextView title;
 
     RecyclerView questionsQuestions;
@@ -49,6 +57,15 @@ public class GamePage extends AppCompatActivity {
         sfxSettings = findViewById(R.id.sfx_switch);
         generalSettings = findViewById(R.id.general);
 
+        /* SharedPreferences.Editor edit = prefs.edit();
+        edit.putStringSet("game_status", convertArrayToSet(GameData.eligible)); // UNCOMMENT THIS TO RESET TO DEFAULT STATE
+        edit.apply(); */
+
+        /* System.out.println("asdf eligible " + Arrays.toString(GameData.eligible));
+        System.out.println("asdf set " + convertArrayToSet(GameData.eligible));
+        System.out.println("asdf prefs " + Arrays.toString(convertSetToArray(prefs.getStringSet("game_status", convertArrayToSet(GameData.eligible))))); */
+        GameData.eligible = convertSetToArray(prefs.getStringSet("game_status", convertArrayToSet(GameData.eligible)));
+
         if(prefs.getBoolean("isSFX", true)){
             sfxSettings.setChecked(true);
         }
@@ -56,6 +73,7 @@ public class GamePage extends AppCompatActivity {
         hideLeaderboard();
         hideSettings();
         showQuestions();
+        questionsButton.setImageResource(R.drawable.questionsblue2);
 
         QuestionDialog questionDialog = new QuestionDialog(this);
         questionAdapter = new QuestionAdapter(GameData.subjects, questionDialog);
@@ -69,6 +87,7 @@ public class GamePage extends AppCompatActivity {
             public void onClick(View view) {
                 if(GameData.currentPage != 1) {
                     GameData.currentPage = 1;
+                    questionsButton.setImageResource(R.drawable.questionsblue2);
                     title.setText(R.string.daily_qs);
                     showQuestions();
                     hideSettings();
@@ -82,6 +101,7 @@ public class GamePage extends AppCompatActivity {
             public void onClick(View view) {
                 if(GameData.currentPage != 2) {
                     GameData.currentPage = 2;
+                    leaderboardButton.setImageResource(R.drawable.leaderboardblue2);
                     title.setText(R.string.overall_lb);
                     hideQuestions();
                     hideSettings();
@@ -95,6 +115,7 @@ public class GamePage extends AppCompatActivity {
             public void onClick(View view) {
                 if(GameData.currentPage != 3) {
                     GameData.currentPage = 3;
+                    settingsButton.setImageResource(R.drawable.settingsblue2);
                     title.setText(R.string.settings);
                     hideQuestions();
                     showSettings();
@@ -121,6 +142,7 @@ public class GamePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 InstructionsDialog instructDialog = new InstructionsDialog(GamePage.this);
+                instructDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 instructDialog.showDialog();
             }
         });
@@ -129,6 +151,7 @@ public class GamePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ProfileDialog profileDialog = new ProfileDialog(GamePage.this);
+                profileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 profileDialog.showDialog();
             }
         });
@@ -136,6 +159,7 @@ public class GamePage extends AppCompatActivity {
 
     public void hideQuestions(){
         questionsQuestions.setVisibility(View.GONE);
+        questionsButton.setImageResource(R.drawable.questions2);
     }
 
     public void showQuestions(){
@@ -148,6 +172,7 @@ public class GamePage extends AppCompatActivity {
         sfxSettings.setVisibility(View.GONE);
         subjectSettings.setVisibility(View.GONE);
         generalSettings.setVisibility(View.GONE);
+        settingsButton.setImageResource(R.drawable.settings2);
     }
 
     public void showSettings(){
@@ -159,10 +184,34 @@ public class GamePage extends AppCompatActivity {
     }
 
     public void hideLeaderboard(){
-
+        leaderboardButton.setImageResource(R.drawable.leaderboard2);
     }
 
     public void showLeaderboard(){
 
+    }
+
+    public static int[] convertSetToArray(Set<String> set)
+    {
+        int[] array = new int[set.size()];
+        String[] stringArray = set.toArray(new String[set.size()]);
+
+        for(int i = 0; i<set.size(); i++){
+            array[i] = Integer.parseInt(stringArray[i])-i*3;
+        }
+
+        return array;
+    }
+
+    public static <String> Set<String> convertArrayToSet(int array[]) {
+        Set<String> set = new HashSet<>();
+
+        for (int i = 0; i<array.length; i++){
+            int newNum = array[i]+i*3; // CHANGE IF MORE THAN 3 STATES
+            String ph = (String) java.lang.String.valueOf(newNum);
+            set.add(ph);
+        }
+
+        return set;
     }
 }

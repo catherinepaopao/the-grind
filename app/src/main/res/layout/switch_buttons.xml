@@ -7,27 +7,36 @@
     android:gravity="bottom"
     style="?android:attr/buttonBarStyle">
 
-    <Button
+    <ImageButton
         android:id="@+id/question_button"
-        android:layout_width="135dp"
-        android:layout_height="70dp"
+        android:layout_width="150sp"
+        android:layout_height="60sp"
         android:layout_weight="1"
-        android:text="Q"
+        android:src="@drawable/questions2"
+        android:scaleType="fitXY"
+        android:scaleX="1.15"
+        android:scaleY="1.1"
         style="?android:attr/buttonBarButtonStyle"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/leaderboard_button"
-        android:layout_width="135dp"
-        android:layout_height="70dp"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="150sp"
+        android:layout_height="60sp"
         android:layout_weight="1"
-        android:text="LB"
-        style="?android:attr/buttonBarButtonStyle"/>
+        android:src="@drawable/leaderboard2"
+        android:scaleType="fitXY"
+        android:scaleX="1.15"
+        android:scaleY="1.1"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/settings_button"
-        android:layout_width="135dp"
-        android:layout_height="70dp"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="150sp"
+        android:layout_height="60sp"
         android:layout_weight="1"
-        android:text="S"
-        style="?android:attr/buttonBarButtonStyle"/>
+        android:scaleType="fitXY"
+        android:scaleX="1.15"
+        android:scaleY="1.1"
+        android:src="@drawable/settings2" />
 </LinearLayout>

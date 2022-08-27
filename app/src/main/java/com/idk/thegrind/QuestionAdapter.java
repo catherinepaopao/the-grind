@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,15 +21,15 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     public static class QuestionViewHolder extends RecyclerView.ViewHolder {
-        private final Button buttonView;
+        private final ImageButton buttonView;
 
         public QuestionViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
-            buttonView = (Button) view.findViewById(R.id.question_icon);
+            buttonView = view.findViewById(R.id.question_icon);
         }
 
-        public Button getButtonView() {
+        public ImageButton getButtonView() {
             return buttonView;
         }
     }
@@ -48,19 +49,16 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getButtonView().setText(subjects[position]);
+        viewHolder.getButtonView().setImageResource(GameData.subjectButtons[position]);
 
         viewHolder.buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                questionDialog.showDialog(position);
-            }
-        });
-
-        questionDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                GameData.eligible[position] = false;
+                if(GameData.eligible[position] != 2){
+                    questionDialog.showDialog(position);
+                } else {
+                    // leaderboard page
+                }
             }
         });
     }
