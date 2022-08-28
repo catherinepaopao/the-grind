@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 
 public class QuestionDialog extends Dialog {
     SharedPreferences prefs;
+    UpdateRecycler updateRecycler = null;
 
     public QuestionDialog(@NonNull Context context) {
         super(context);
@@ -28,7 +30,11 @@ public class QuestionDialog extends Dialog {
         prefs = context.getSharedPreferences("grind_prefs", Context.MODE_PRIVATE);
     }
 
-    public void showDialog(int position){
+    public void setUpdateRecycler(UpdateRecycler updateRecycler) {
+        this.updateRecycler = updateRecycler;
+    }
+
+    public void showDialog(int position, ImageButton buttonDisplay){
         Button submit = findViewById(R.id.submit);
         TextView eligibility = findViewById(R.id.eligibility);
         TextView wrongAnswer = findViewById(R.id.wrong_answer);
@@ -41,7 +47,6 @@ public class QuestionDialog extends Dialog {
         answerBox.setText("");
         subjectName.setText(GameData.subjects[position].toUpperCase(Locale.ROOT));
 
-        String currDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         long currTime = System.currentTimeMillis();
 
         /* edit.putString("starting_times", Conversions.convertArrayToStringTime(GameData.startingTimesDefault)); // RESET STARTING TIMES
@@ -49,12 +54,6 @@ public class QuestionDialog extends Dialog {
 
         GameData.startingTimes = Conversions.convertArrayStringToArray(prefs.getString("starting_times", Conversions.convertArrayToStringTime(GameData.startingTimes)));
 
-        if(!prefs.getString("last_date", "none").equals(currDate)){ // if it's the next day
-            GameData.eligible = new int[GameData.subjects.length]; // reset eligibility
-            edit.putString("last_date", currDate);
-            edit.apply();
-            GameData.startingTimes = GameData.startingTimesDefault.clone(); // reset starting times
-        }
 
         if(Long.parseLong(GameData.startingTimes[position]) < 0){ // if not started, set start as now
             GameData.startingTimes[position] = String.valueOf(currTime);
@@ -83,7 +82,10 @@ public class QuestionDialog extends Dialog {
                     if(GameData.eligible[position] == 0){ // leaderboard submit
                         if(playerAnswer.equals(GameData.subjectAnswers[position])){
                             GameData.eligible[position] = 2;
+                            System.out.println("asdf " + Conversions.convertTimeToString(System.currentTimeMillis()-Long.parseLong(GameData.startingTimes[position])));
                             // congratulations message/popup asking to submit name + their time/score
+                            // change to leaderboard image
+                            updateRecycler.updateDisplay(position, buttonDisplay);
                             dismiss();
                         } else {
                             GameData.eligible[position] = 1;
@@ -96,6 +98,7 @@ public class QuestionDialog extends Dialog {
                         if(playerAnswer.equals(GameData.subjectAnswers[position])){
                             GameData.eligible[position] = 2;
                             // congratulations message but notif that they don't get leaderboard, no name entry
+                            updateRecycler.updateDisplay(position, buttonDisplay);
                             dismiss();
                         } else {
                             answerBox.setText("");
@@ -114,5 +117,7 @@ public class QuestionDialog extends Dialog {
         show();
     }
 
-
+    interface UpdateRecycler{
+        void updateDisplay(int position, ImageButton button);
+    }
 }

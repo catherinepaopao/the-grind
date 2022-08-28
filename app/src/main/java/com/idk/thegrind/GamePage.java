@@ -18,8 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 public class GamePage extends AppCompatActivity {
@@ -65,7 +68,7 @@ public class GamePage extends AppCompatActivity {
         System.out.println("asdf set " + convertArrayToSet(GameData.eligible));
         System.out.println("asdf prefs " + Arrays.toString(convertSetToArray(prefs.getStringSet("game_status", convertArrayToSet(GameData.eligible))))); */
 
-
+        Conversions.checkDate(prefs);
         GameData.eligible = Conversions.convertArrayStringToArrayInt(prefs.getString("game_status", Conversions.convertArrayToString(GameData.eligible)));
 
         if(prefs.getBoolean("isSFX", true)){
@@ -78,11 +81,24 @@ public class GamePage extends AppCompatActivity {
         questionsButton.setImageResource(R.drawable.questionsblue2);
 
         QuestionDialog questionDialog = new QuestionDialog(this);
-        questionAdapter = new QuestionAdapter(GameData.subjects, questionDialog);
+        questionAdapter = new QuestionAdapter(GameData.subjects, questionDialog, prefs);
 
         questionsQuestions.setLayoutManager(new GridLayoutManager(this, 2));
         questionsQuestions.setAdapter(questionAdapter);
         questionAdapter.notifyDataSetChanged();
+
+        questionDialog.setUpdateRecycler(new QuestionDialog.UpdateRecycler() {
+            @Override
+            public void updateDisplay(int position, ImageButton button) {
+                if(GameData.eligible[position] != 2){
+                    button.setImageResource(GameData.subjectButtons[position]);
+                } else {
+                    // leaderboard image
+                    button.setVisibility(View.GONE); // OBVIOUSLY CHANGE THIS
+                }
+                questionAdapter.notifyDataSetChanged();
+            }
+        });
 
         questionsButton.setOnClickListener(new View.OnClickListener() {
             @Override

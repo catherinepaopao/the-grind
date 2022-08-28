@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().hide();
+        //Conversions.resetAll(prefs); // RESET EVERYTHING
 
         start = findViewById(R.id.startbutton);
         InstructionsDialog instructDialog = new InstructionsDialog(this);
@@ -51,9 +52,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    edit.putBoolean("isNew", true);
-                    edit.apply(); // testing purposes
-
                     Intent toQuestions = new Intent(getApplicationContext(), GamePage.class);
                     startActivity(toQuestions);
                 }

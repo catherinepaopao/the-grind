@@ -22,13 +22,13 @@ public class ProfileDialog extends Dialog {
     public void showDialog(){
         Button save = findViewById(R.id.save);
         EditText nameEntry = findViewById(R.id.pref_name);
-        nameEntry.setText(prefs.getString("prefName", ""));
+        nameEntry.setText(prefs.getString("pref_name", ""));
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor edit = prefs.edit();
-                edit.putString("prefName", nameEntry.getText().toString());
+                edit.putString("pref_name", nameEntry.getText().toString());
                 edit.apply();
                 dismiss();
             }

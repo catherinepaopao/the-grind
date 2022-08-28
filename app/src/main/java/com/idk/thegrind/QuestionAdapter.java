@@ -1,7 +1,9 @@
 package com.idk.thegrind;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -12,13 +14,19 @@ import android.widget.ImageButton;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>{
     String[] subjects;
     QuestionDialog questionDialog;
+    SharedPreferences prefs;
 
-    public QuestionAdapter(String[] subjects, QuestionDialog questionDialog) {
+    public QuestionAdapter(String[] subjects, QuestionDialog questionDialog, SharedPreferences prefs) {
         this.subjects = subjects;
         this.questionDialog = questionDialog;
+        this.prefs = prefs;
     }
 
     public static class QuestionViewHolder extends RecyclerView.ViewHolder {
@@ -50,14 +58,21 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getButtonView().setImageResource(GameData.subjectButtons[position]);
+
+        if(GameData.eligible[position] != 2){
+            viewHolder.getButtonView().setImageResource(GameData.subjectButtons[position]);
+        } else {
+            // leaderboard image
+        }
 
         viewHolder.buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Conversions.checkDate(prefs);
+
                 if(GameData.eligible[position] != 2){
                     questionDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    questionDialog.showDialog(position);
+                    questionDialog.showDialog(position, viewHolder.getButtonView());
                 } else {
                     // leaderboard page
                 }
