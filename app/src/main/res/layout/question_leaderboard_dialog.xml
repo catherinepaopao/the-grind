@@ -71,10 +71,10 @@
         android:layout_width="300dp"
         android:layout_height="45dp"
         android:layout_marginTop="27dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="0dp"
         android:text=""
         android:textColor="@color/black"
-        android:textSize="22sp"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
@@ -83,10 +83,10 @@
         android:layout_width="300dp"
         android:layout_height="45dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="0dp"
         android:text=""
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lb4" />
 
@@ -95,10 +95,10 @@
         android:layout_width="300dp"
         android:layout_height="45dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="0dp"
         android:text=""
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lb2" />
 
@@ -107,10 +107,10 @@
         android:layout_width="300dp"
         android:layout_height="45dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="0dp"
         android:text=""
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lb1" />
 
@@ -119,10 +119,10 @@
         android:layout_width="300dp"
         android:layout_height="45dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="0dp"
         android:text=""
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
