@@ -27,6 +27,7 @@ public class ProfileDialog extends Dialog {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Sounds.play(getContext(), R.raw.click);
                 SharedPreferences.Editor edit = prefs.edit();
                 edit.putString("pref_name", nameEntry.getText().toString());
                 edit.apply();

@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-public class GamePage extends AppCompatActivity {
+public class GamePage extends AppCompatActivity implements PlaySound{
     QuestionAdapter questionAdapter;
 
     SharedPreferences prefs;
@@ -82,7 +82,7 @@ public class GamePage extends AppCompatActivity {
 
         QuestionDialog questionDialog = new QuestionDialog(this);
         LeaderboardDialog leaderboardDialog = new LeaderboardDialog(this);
-        questionAdapter = new QuestionAdapter(GameData.subjects, questionDialog, leaderboardDialog, prefs);
+        questionAdapter = new QuestionAdapter(GameData.subjects, questionDialog, leaderboardDialog, prefs, this);
 
         questionsQuestions.setLayoutManager(new GridLayoutManager(this, 2));
         questionsQuestions.setAdapter(questionAdapter);
@@ -104,6 +104,7 @@ public class GamePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(GameData.currentPage != 1) {
+                    Sounds.play(GamePage.this, R.raw.click);
                     GameData.currentPage = 1;
                     questionsButton.setImageResource(R.drawable.questionsblue2);
                     title.setText(R.string.daily_qs);
@@ -118,6 +119,7 @@ public class GamePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(GameData.currentPage != 2) {
+                    Sounds.play(GamePage.this, R.raw.click);
                     GameData.currentPage = 2;
                     leaderboardButton.setImageResource(R.drawable.leaderboardblue2);
                     title.setText(R.string.overall_lb);
@@ -132,6 +134,7 @@ public class GamePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(GameData.currentPage != 3) {
+                    Sounds.play(GamePage.this, R.raw.click);
                     GameData.currentPage = 3;
                     settingsButton.setImageResource(R.drawable.settingsblue2);
                     title.setText(R.string.settings);
@@ -146,6 +149,7 @@ public class GamePage extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SharedPreferences.Editor edit = prefs.edit();
+                Sounds.play(GamePage.this, R.raw.click);
 
                 if(!isChecked){
                     edit.putBoolean("isSFX", false);
@@ -159,6 +163,7 @@ public class GamePage extends AppCompatActivity {
         instructionsSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Sounds.play(GamePage.this, R.raw.click);
                 InstructionsDialog instructDialog = new InstructionsDialog(GamePage.this);
                 instructDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 instructDialog.showDialog();
@@ -168,6 +173,7 @@ public class GamePage extends AppCompatActivity {
         profileSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Sounds.play(GamePage.this, R.raw.click);
                 ProfileDialog profileDialog = new ProfileDialog(GamePage.this);
                 profileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 profileDialog.showDialog();
@@ -207,5 +213,10 @@ public class GamePage extends AppCompatActivity {
 
     public void showLeaderboard(){
 
+    }
+
+    @Override
+    public void playSound(int sound) {
+        Sounds.play(this, sound);
     }
 }

@@ -23,12 +23,14 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     QuestionDialog questionDialog;
     LeaderboardDialog leaderboardDialog;
     SharedPreferences prefs;
+    PlaySound playSound;
 
-    public QuestionAdapter(String[] subjects, QuestionDialog questionDialog, LeaderboardDialog leaderboardDialog, SharedPreferences prefs) {
+    public QuestionAdapter(String[] subjects, QuestionDialog questionDialog, LeaderboardDialog leaderboardDialog, SharedPreferences prefs, PlaySound playSound) {
         this.subjects = subjects;
         this.questionDialog = questionDialog;
         this.prefs = prefs;
         this.leaderboardDialog = leaderboardDialog;
+        this.playSound = playSound;
     }
 
     public static class QuestionViewHolder extends RecyclerView.ViewHolder {
@@ -70,6 +72,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         viewHolder.buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playSound.playSound(R.raw.click);
                 Conversions.checkDate(prefs);
 
                 if(GameData.eligible[position] != 2){
@@ -88,4 +91,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     public int getItemCount() {
         return subjects.length;
     }
+}
+
+interface PlaySound {
+    void playSound(int sound);
 }

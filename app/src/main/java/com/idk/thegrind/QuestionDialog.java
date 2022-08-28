@@ -77,20 +77,25 @@ public class QuestionDialog extends Dialog {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Sounds.play(getContext(), R.raw.click);
                 String playerAnswer = answerBox.getText().toString().toLowerCase(Locale.ROOT);
                 playerAnswer = playerAnswer.replace(" ", "");
                 correctDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 if(playerAnswer.length() == 0){
+                    Sounds.play(getContext(), R.raw.error);
                     wrongAnswer.setVisibility(View.VISIBLE);
                     wrongAnswer.setText(R.string.no_answer);
                 } else if(playerAnswer.length() > 1 || !playerAnswer.matches("[a-zA-Z]+")) {
+                    Sounds.play(getContext(), R.raw.error);
                     wrongAnswer.setVisibility(View.VISIBLE);
                     wrongAnswer.setText(R.string.bad_answer);
                 } else {
                     if(playerAnswer.equals(GameData.subjectAnswers[position])){
+                        Sounds.play(getContext(), R.raw.correct);
                         long result = System.currentTimeMillis()-Long.parseLong(GameData.startingTimes[position]);
                         if(GameData.eligible[position] == 0){ // leaderboard submit
+                            Sounds.play(getContext(), R.raw.congrats);
                             correctDialog.showDialog(result, true);
                         } else {
                             correctDialog.showDialog(result, false);
@@ -100,6 +105,7 @@ public class QuestionDialog extends Dialog {
                         updateRecycler.updateDisplay(position, buttonDisplay);
                         dismiss();
                     } else {
+                        Sounds.play(getContext(), R.raw.wrong);
                         GameData.eligible[position] = 1;
                         eligibility.setVisibility(View.VISIBLE);
                         answerBox.setText("");

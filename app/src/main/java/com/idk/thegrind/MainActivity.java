@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().hide();
-        Conversions.resetAll(prefs); // RESET EVERYTHING
+        //Conversions.resetAll(prefs); // RESET EVERYTHING
 
         start = findViewById(R.id.startbutton);
         InstructionsDialog instructDialog = new InstructionsDialog(this);
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor edit = prefs.edit();
+                Sounds.play(MainActivity.this, R.raw.click);
 
                 if(prefs.getBoolean("isNew", true)){
                     instructDialog.showDialog();

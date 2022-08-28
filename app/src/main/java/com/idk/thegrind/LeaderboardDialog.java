@@ -23,6 +23,7 @@ public class LeaderboardDialog extends Dialog {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Sounds.play(getContext(), R.raw.click);
                 dismiss();
             }
         });
