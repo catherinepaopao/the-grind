@@ -44,17 +44,21 @@ public class CorrectAnswerDialog extends Dialog {
         returnQuestions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(nameEntry.getText().toString().equals("")){
-                    if(forLeaderboard){
+                if (forLeaderboard) {
+                    if(nameEntry.getText().toString().equals("")){
                         Sounds.play(getContext(), R.raw.error);
                         errorMsg.setVisibility(View.VISIBLE);
+                    } else {
+                        Sounds.play(getContext(), R.raw.click);
+                        SharedPreferences.Editor edit = prefs.edit();
+                        edit.putString("pref_name", nameEntry.getText().toString());
+                        edit.apply();
+                        dismiss();
                     }
                 } else {
-                    Sounds.play(getContext(), R.raw.click);
-                    SharedPreferences.Editor edit = prefs.edit();
-                    edit.putString("pref_name", nameEntry.getText().toString());
                     dismiss();
                 }
+
             }
         });
 

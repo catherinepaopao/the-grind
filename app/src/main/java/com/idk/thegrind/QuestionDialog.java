@@ -58,7 +58,11 @@ public class QuestionDialog extends Dialog {
         edit.apply(); */
 
         GameData.startingTimes = Conversions.convertArrayStringToArray(prefs.getString("starting_times", Conversions.convertArrayToStringTime(GameData.startingTimes)));
+        String[] placeHolder = Conversions.convertArrayStringToArray(prefs.getString("total_times", Conversions.convertArrayToStringTime(GameData.totalTimes)));
 
+        for(int i = 0; i<placeHolder.length; i++){
+            GameData.totalTimes[i] = Long.parseLong(placeHolder[i]);
+        }
 
         if(Long.parseLong(GameData.startingTimes[position]) < 0){ // if not started, set start as now
             GameData.startingTimes[position] = String.valueOf(currTime);
@@ -96,6 +100,7 @@ public class QuestionDialog extends Dialog {
                         long result = System.currentTimeMillis()-Long.parseLong(GameData.startingTimes[position]);
                         if(GameData.eligible[position] == 0){ // leaderboard submit
                             Sounds.play(getContext(), R.raw.congrats);
+                            GameData.totalTimes[position] = result;
                             correctDialog.showDialog(result, true);
                         } else {
                             correctDialog.showDialog(result, false);
@@ -112,8 +117,10 @@ public class QuestionDialog extends Dialog {
                         wrongAnswer.setText(R.string.wrong_answer);
                         wrongAnswer.setVisibility(View.VISIBLE);
                     }
-                    String gameStatus = Conversions.convertArrayToString(GameData.eligible);
 
+                    String gameStatus = Conversions.convertArrayToString(GameData.eligible);
+                    String totalTime = Conversions.convertArrayToStringTime(GameData.totalTimes);
+                    edit.putString("total_times", totalTime);
                     edit.putString("game_status", gameStatus);
                     edit.apply();
                 }
