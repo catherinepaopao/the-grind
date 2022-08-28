@@ -19,4 +19,9 @@
     <string name="not_eligible">You are not eligible for a leaderboard spot</string>
     <string name="wrong_answer">Wrong answer!</string>
     <string name="no_answer">Answer before submitting!</string>
+    <string name="correct">Correct Answer!</string>
+    <string name="your_time">Your Time:</string>
+    <string name="return_questions">RETURN</string>
+    <string name="leaderboard_submit_error">Your time will not be submitted to the leaderboard.</string>
+    <string name="leaderboard_submit">Your time will be submitted to the leaderboard!</string>
 </resources>

@@ -3,6 +3,8 @@ package com.idk.thegrind;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,11 +25,13 @@ import java.util.stream.Collectors;
 public class QuestionDialog extends Dialog {
     SharedPreferences prefs;
     UpdateRecycler updateRecycler = null;
+    CorrectAnswerDialog correctDialog;
 
     public QuestionDialog(@NonNull Context context) {
         super(context);
         setContentView(R.layout.question_dialog);
         prefs = context.getSharedPreferences("grind_prefs", Context.MODE_PRIVATE);
+        correctDialog = new CorrectAnswerDialog(context);
     }
 
     public void setUpdateRecycler(UpdateRecycler updateRecycler) {
@@ -45,6 +49,7 @@ public class QuestionDialog extends Dialog {
 
         wrongAnswer.setVisibility(View.GONE);
         answerBox.setText("");
+        answerBox.clearFocus();
         subjectName.setText(GameData.subjects[position].toUpperCase(Locale.ROOT));
 
         long currTime = System.currentTimeMillis();
@@ -74,37 +79,29 @@ public class QuestionDialog extends Dialog {
             public void onClick(View v) {
                 String playerAnswer = answerBox.getText().toString().toLowerCase(Locale.ROOT);
                 playerAnswer = playerAnswer.replace(" ", "");
+                correctDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 if(playerAnswer.length() == 0){
                     wrongAnswer.setVisibility(View.VISIBLE);
                     wrongAnswer.setText(R.string.no_answer);
                 } else {
-                    if(GameData.eligible[position] == 0){ // leaderboard submit
-                        if(playerAnswer.equals(GameData.subjectAnswers[position])){
-                            GameData.eligible[position] = 2;
-                            System.out.println("asdf " + Conversions.convertTimeToString(System.currentTimeMillis()-Long.parseLong(GameData.startingTimes[position])));
-                            // congratulations message/popup asking to submit name + their time/score
-                            // change to leaderboard image
-                            updateRecycler.updateDisplay(position, buttonDisplay);
-                            dismiss();
+                    if(playerAnswer.equals(GameData.subjectAnswers[position])){
+                        long result = System.currentTimeMillis()-Long.parseLong(GameData.startingTimes[position]);
+                        if(GameData.eligible[position] == 0){ // leaderboard submit
+                            correctDialog.showDialog(result, true);
                         } else {
-                            GameData.eligible[position] = 1;
-                            eligibility.setVisibility(View.VISIBLE);
-                            answerBox.setText("");
-                            wrongAnswer.setText(R.string.wrong_answer);
-                            wrongAnswer.setVisibility(View.VISIBLE);
+                            correctDialog.showDialog(result, false);
                         }
+
+                        GameData.eligible[position] = 2;
+                        updateRecycler.updateDisplay(position, buttonDisplay);
+                        dismiss();
                     } else {
-                        if(playerAnswer.equals(GameData.subjectAnswers[position])){
-                            GameData.eligible[position] = 2;
-                            // congratulations message but notif that they don't get leaderboard, no name entry
-                            updateRecycler.updateDisplay(position, buttonDisplay);
-                            dismiss();
-                        } else {
-                            answerBox.setText("");
-                            wrongAnswer.setText(R.string.wrong_answer);
-                            wrongAnswer.setVisibility(View.VISIBLE);
-                        }
+                        GameData.eligible[position] = 1;
+                        eligibility.setVisibility(View.VISIBLE);
+                        answerBox.setText("");
+                        wrongAnswer.setText(R.string.wrong_answer);
+                        wrongAnswer.setVisibility(View.VISIBLE);
                     }
                     String gameStatus = Conversions.convertArrayToString(GameData.eligible);
 

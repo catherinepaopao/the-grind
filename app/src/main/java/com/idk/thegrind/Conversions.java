@@ -64,7 +64,28 @@ public class Conversions {
         long secs = (msDiff-hours*3600000-mins*60000)/1000;
         long mils = msDiff-hours*3600000-mins*60000-secs*1000;
 
-        return "Time taken: " + hours + ":" + mins + ":" + secs + ":" + mils;
+        String totalTime = "";
+
+        if(hours/10 == 0){
+            totalTime += "0";
+        }
+        totalTime += hours + ":";
+        if(mins/10 == 0){
+            totalTime += "0";
+        }
+        totalTime +=  mins + ":";
+        if(secs/10 == 0){
+            totalTime += "0";
+        }
+        totalTime += secs + ":";
+        if(mils/10 == 0){
+            totalTime += "00";
+        } else if(mils/100 == 0){
+            totalTime += "0";
+        }
+        totalTime += mils;
+
+        return totalTime;
     }
 
     public static void checkDate(SharedPreferences prefs){
