@@ -84,6 +84,9 @@ public class QuestionDialog extends Dialog {
                 if(playerAnswer.length() == 0){
                     wrongAnswer.setVisibility(View.VISIBLE);
                     wrongAnswer.setText(R.string.no_answer);
+                } else if(playerAnswer.length() > 1 || !playerAnswer.matches("[a-zA-Z]+")) {
+                    wrongAnswer.setVisibility(View.VISIBLE);
+                    wrongAnswer.setText(R.string.bad_answer);
                 } else {
                     if(playerAnswer.equals(GameData.subjectAnswers[position])){
                         long result = System.currentTimeMillis()-Long.parseLong(GameData.startingTimes[position]);

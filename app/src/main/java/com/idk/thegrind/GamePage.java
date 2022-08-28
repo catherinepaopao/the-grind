@@ -81,7 +81,8 @@ public class GamePage extends AppCompatActivity {
         questionsButton.setImageResource(R.drawable.questionsblue2);
 
         QuestionDialog questionDialog = new QuestionDialog(this);
-        questionAdapter = new QuestionAdapter(GameData.subjects, questionDialog, prefs);
+        LeaderboardDialog leaderboardDialog = new LeaderboardDialog(this);
+        questionAdapter = new QuestionAdapter(GameData.subjects, questionDialog, leaderboardDialog, prefs);
 
         questionsQuestions.setLayoutManager(new GridLayoutManager(this, 2));
         questionsQuestions.setAdapter(questionAdapter);

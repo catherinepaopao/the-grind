@@ -21,12 +21,14 @@ import java.util.Locale;
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>{
     String[] subjects;
     QuestionDialog questionDialog;
+    LeaderboardDialog leaderboardDialog;
     SharedPreferences prefs;
 
-    public QuestionAdapter(String[] subjects, QuestionDialog questionDialog, SharedPreferences prefs) {
+    public QuestionAdapter(String[] subjects, QuestionDialog questionDialog, LeaderboardDialog leaderboardDialog, SharedPreferences prefs) {
         this.subjects = subjects;
         this.questionDialog = questionDialog;
         this.prefs = prefs;
+        this.leaderboardDialog = leaderboardDialog;
     }
 
     public static class QuestionViewHolder extends RecyclerView.ViewHolder {
@@ -74,6 +76,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                     questionDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     questionDialog.showDialog(position, viewHolder.getButtonView());
                 } else {
+                    leaderboardDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    leaderboardDialog.showDialog(position);
                     // leaderboard page
                 }
             }

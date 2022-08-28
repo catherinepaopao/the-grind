@@ -49,6 +49,8 @@ public class CorrectAnswerDialog extends Dialog {
                         errorMsg.setVisibility(View.VISIBLE);
                     }
                 } else {
+                    SharedPreferences.Editor edit = prefs.edit();
+                    edit.putString("pref_name", nameEntry.getText().toString());
                     dismiss();
                 }
 
