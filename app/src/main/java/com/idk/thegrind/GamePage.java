@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ public class GamePage extends AppCompatActivity implements PlaySound{
     Button subjectSettings;
     Switch sfxSettings;
     TextView generalSettings;
+    ImageView leaderboardMock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ public class GamePage extends AppCompatActivity implements PlaySound{
         subjectSettings = findViewById(R.id.subjects_button);
         sfxSettings = findViewById(R.id.sfx_switch);
         generalSettings = findViewById(R.id.general);
+        leaderboardMock = findViewById(R.id.lb_mock);
 
         /* SharedPreferences.Editor edit = prefs.edit();
         edit.putString("game_status", Conversions.convertArrayToString(GameData.eligible)); // UNCOMMENT THIS TO RESET ELEGIBILITY TO DEFAULT STATE
@@ -209,10 +212,11 @@ public class GamePage extends AppCompatActivity implements PlaySound{
 
     public void hideLeaderboard(){
         leaderboardButton.setImageResource(R.drawable.leaderboard2);
+        leaderboardMock.setVisibility(View.GONE);
     }
 
     public void showLeaderboard(){
-
+        leaderboardMock.setVisibility(View.VISIBLE);
     }
 
     @Override
