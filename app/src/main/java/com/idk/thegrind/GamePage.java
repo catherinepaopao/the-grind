@@ -93,8 +93,7 @@ public class GamePage extends AppCompatActivity {
                 if(GameData.eligible[position] != 2){
                     button.setImageResource(GameData.subjectButtons[position]);
                 } else {
-                    // leaderboard image
-                    button.setVisibility(View.GONE); // OBVIOUSLY CHANGE THIS
+                    button.setImageResource(GameData.subjectButtonsLeaderboard[position]);
                 }
                 questionAdapter.notifyDataSetChanged();
             }

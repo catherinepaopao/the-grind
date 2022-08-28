@@ -62,7 +62,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         if(GameData.eligible[position] != 2){
             viewHolder.getButtonView().setImageResource(GameData.subjectButtons[position]);
         } else {
-            // leaderboard image
+            viewHolder.getButtonView().setImageResource(GameData.subjectButtonsLeaderboard[position]);
         }
 
         viewHolder.buttonView.setOnClickListener(new View.OnClickListener() {
