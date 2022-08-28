@@ -1,5 +1,5 @@
 # the-grind
-Daily Question App
+Daily Question App\n
 *Some of the following features require a server that we are too cheap to pay for and are therefore not currently implemented*
 
 Instructions will pop up the first time the app is started, but they can be viewed again in Settings if the user wishes to
